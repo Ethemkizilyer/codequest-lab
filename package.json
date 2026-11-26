@@ -1,0 +1,24 @@
+{
+  "name": "codequest-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A playful, mentor-driven platform for learning full-stack development.",
+  "packageManager": "npm@11.3.0",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @codequest/api\" \"npm run dev -w @codequest/web\"",
+    "build": "npm run build -w @codequest/api && npm run build -w @codequest/web",
+    "lint": "npm run lint -w @codequest/api && npm run lint -w @codequest/web",
+    "typecheck": "npm run typecheck -w @codequest/api && npm run typecheck -w @codequest/web && npm run typecheck -w @codequest/shared",
+    "test": "npm run test -w @codequest/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

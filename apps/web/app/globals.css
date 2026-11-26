@@ -1,0 +1,33 @@
+:root {
+  --ink: #17221c;
+  --muted: #67746b;
+  --paper: #f4f0e7;
+  --lime: #d8f36b;
+  --coral: #f4775e;
+  --line: rgba(23, 34, 28, 0.16);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: Georgia, "Times New Roman", serif; }
+button { font: inherit; cursor: pointer; }
+.shell { min-height: 100vh; padding: 7vw 8vw; background: radial-gradient(circle at 85% 10%, #e3f6a5 0 12%, transparent 34%), var(--paper); }
+.hero { max-width: 800px; padding-bottom: 12vw; }
+.eyebrow { margin: 0 0 1.2rem; color: var(--coral); font: 700 0.72rem/1.2 Arial, sans-serif; letter-spacing: 0.18em; }
+h1 { max-width: 780px; margin: 0; font-size: clamp(3.5rem, 9vw, 8.5rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.07em; }
+.intro { max-width: 500px; margin: 2.5rem 0; color: var(--muted); font: 1.1rem/1.5 Arial, sans-serif; }
+.primary-button { border: 0; padding: 1rem 1.3rem; color: var(--ink); background: var(--lime); font: 700 0.95rem Arial, sans-serif; }
+.primary-button span { margin-left: 1.5rem; font-size: 1.3rem; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+h2 { margin: 0; font-size: clamp(2rem, 4vw, 4rem); font-weight: 400; letter-spacing: -0.05em; }
+.progress { color: var(--muted); font: 0.8rem Arial, sans-serif; }
+.quest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.quest-card { position: relative; min-height: 280px; padding: 1.5rem; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.25); }
+.quest-card:nth-child(2) { background: var(--coral); }
+.quest-card:nth-child(3) { background: var(--ink); color: var(--paper); }
+.quest-number { font: 700 0.75rem Arial, sans-serif; }
+.level { float: right; font: 0.7rem Arial, sans-serif; text-transform: uppercase; }
+h3 { margin: 4rem 0 0.5rem; font-size: 2rem; font-weight: 400; letter-spacing: -0.04em; }
+.quest-card p { margin: 0; font: 0.9rem Arial, sans-serif; opacity: 0.72; }
+.text-button { position: absolute; bottom: 1.5rem; left: 1.5rem; border: 0; padding: 0; color: inherit; background: transparent; font: 700 0.78rem Arial, sans-serif; }
+.text-button span { margin-left: 0.5rem; }
+@media (max-width: 700px) { .shell { padding: 3rem 1.25rem; } .hero { padding-bottom: 6rem; } .quest-grid { grid-template-columns: 1fr; } .section-heading { align-items: start; flex-direction: column; gap: 0.8rem; } }

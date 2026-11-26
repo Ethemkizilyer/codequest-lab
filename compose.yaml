@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: codequest-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: codequest
+      POSTGRES_PASSWORD: codequest-password
+      POSTGRES_DB: codequest
+    ports:
+      - "5433:5432"
+    volumes:
+      - codequest-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codequest -d codequest"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  codequest-postgres-data:
