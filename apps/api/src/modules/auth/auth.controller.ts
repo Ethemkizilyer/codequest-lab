@@ -1,6 +1,9 @@
 import type { Request, Response } from "express";
 import { loginUserSchema } from "@codequest/shared";
-import { loginUser } from "./auth.service.js";
+import {
+  getCurrentUser,
+  loginUser,
+} from "./auth.service.js";
 
 export const loginUserController = async (
   request: Request,
@@ -11,5 +14,29 @@ export const loginUserController = async (
 
   response.status(200).json({
     data: result,
+  });
+};
+
+export const getCurrentUserController = async (
+  request: Request,
+  response: Response,
+) => {
+  const userId = request.auth?.userId;
+
+  if (userId === undefined) {
+    response.status(401).json({
+      error: {
+        code: "AUTHENTICATION_REQUIRED",
+        message: "Authentication is required",
+      },
+    });
+
+    return;
+  }
+
+  const user = await getCurrentUser(userId);
+
+  response.status(200).json({
+    data: user,
   });
 };
