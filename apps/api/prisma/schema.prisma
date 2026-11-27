@@ -35,3 +35,40 @@ enum Role {
   USER
   ADMIN
 }
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model LearningPath {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  quests      Quest[]
+}
+
+model Quest {
+  id             String     @id @default(cuid())
+  learningPathId String
+  slug           String
+  title          String
+  summary        String
+  content        String
+  difficulty     Difficulty
+  order          Int
+  xp             Int        @default(100)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  learningPath LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@unique([learningPathId, slug])
+  @@unique([learningPathId, order])
+  @@index([learningPathId])
+}
