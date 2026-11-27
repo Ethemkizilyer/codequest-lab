@@ -7,6 +7,7 @@ import { authRouter } from "./modules/auth/auth.routes.js";
 import cookieParser from "cookie-parser";
 import { learningPathRouter } from "./modules/learning-paths/learning-path.routes.js";
 import { questRouter } from "./modules/learning-paths/quest.routes.js";
+import { progressRouter } from "./modules/progress/progress.routes.js";
 
 export const createApp = () => {
   const app = express();
@@ -19,7 +20,7 @@ export const createApp = () => {
   app.use("/api/v1/users", userRouter);
   app.use("/api/v1/auth", authRouter);
   app.use("/api/v1/learning-paths/:learningPathId/quests", questRouter);
-
+  app.use("/api/v1", progressRouter);
   app.use("/api/v1/learning-paths", learningPathRouter);
 
   app.use((_request, _response, next) => {

@@ -70,3 +70,7 @@ export type CreateQuestInput = z.infer<
 export type UpdateQuestInput = z.infer<
   typeof updateQuestSchema
 >;
+
+export const questIdParamsSchema = z.object({
+  questId: z.string().cuid(),
+});

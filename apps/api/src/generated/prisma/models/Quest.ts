@@ -268,6 +268,7 @@ export type QuestWhereInput = {
   xp?: Prisma.IntFilter<"Quest"> | number
   createdAt?: Prisma.DateTimeFilter<"Quest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quest"> | Date | string
+  progress?: Prisma.QuestProgressListRelationFilter
   learningPath?: Prisma.XOR<Prisma.LearningPathScalarRelationFilter, Prisma.LearningPathWhereInput>
 }
 
@@ -283,6 +284,7 @@ export type QuestOrderByWithRelationInput = {
   xp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  progress?: Prisma.QuestProgressOrderByRelationAggregateInput
   learningPath?: Prisma.LearningPathOrderByWithRelationInput
 }
 
@@ -303,6 +305,7 @@ export type QuestWhereUniqueInput = Prisma.AtLeast<{
   xp?: Prisma.IntFilter<"Quest"> | number
   createdAt?: Prisma.DateTimeFilter<"Quest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quest"> | Date | string
+  progress?: Prisma.QuestProgressListRelationFilter
   learningPath?: Prisma.XOR<Prisma.LearningPathScalarRelationFilter, Prisma.LearningPathWhereInput>
 }, "id" | "learningPathId_slug" | "learningPathId_order">
 
@@ -353,6 +356,7 @@ export type QuestCreateInput = {
   xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  progress?: Prisma.QuestProgressCreateNestedManyWithoutQuestInput
   learningPath: Prisma.LearningPathCreateNestedOneWithoutQuestsInput
 }
 
@@ -368,6 +372,7 @@ export type QuestUncheckedCreateInput = {
   xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  progress?: Prisma.QuestProgressUncheckedCreateNestedManyWithoutQuestInput
 }
 
 export type QuestUpdateInput = {
@@ -381,6 +386,7 @@ export type QuestUpdateInput = {
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  progress?: Prisma.QuestProgressUpdateManyWithoutQuestNestedInput
   learningPath?: Prisma.LearningPathUpdateOneRequiredWithoutQuestsNestedInput
 }
 
@@ -396,6 +402,7 @@ export type QuestUncheckedUpdateInput = {
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  progress?: Prisma.QuestProgressUncheckedUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestCreateManyInput = {
@@ -511,6 +518,11 @@ export type QuestSumOrderByAggregateInput = {
   xp?: Prisma.SortOrder
 }
 
+export type QuestScalarRelationFilter = {
+  is?: Prisma.QuestWhereInput
+  isNot?: Prisma.QuestWhereInput
+}
+
 export type QuestCreateNestedManyWithoutLearningPathInput = {
   create?: Prisma.XOR<Prisma.QuestCreateWithoutLearningPathInput, Prisma.QuestUncheckedCreateWithoutLearningPathInput> | Prisma.QuestCreateWithoutLearningPathInput[] | Prisma.QuestUncheckedCreateWithoutLearningPathInput[]
   connectOrCreate?: Prisma.QuestCreateOrConnectWithoutLearningPathInput | Prisma.QuestCreateOrConnectWithoutLearningPathInput[]
@@ -557,12 +569,18 @@ export type EnumDifficultyFieldUpdateOperationsInput = {
   set?: $Enums.Difficulty
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type QuestCreateNestedOneWithoutProgressInput = {
+  create?: Prisma.XOR<Prisma.QuestCreateWithoutProgressInput, Prisma.QuestUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.QuestCreateOrConnectWithoutProgressInput
+  connect?: Prisma.QuestWhereUniqueInput
+}
+
+export type QuestUpdateOneRequiredWithoutProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestCreateWithoutProgressInput, Prisma.QuestUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.QuestCreateOrConnectWithoutProgressInput
+  upsert?: Prisma.QuestUpsertWithoutProgressInput
+  connect?: Prisma.QuestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuestUpdateToOneWithWhereWithoutProgressInput, Prisma.QuestUpdateWithoutProgressInput>, Prisma.QuestUncheckedUpdateWithoutProgressInput>
 }
 
 export type QuestCreateWithoutLearningPathInput = {
@@ -576,6 +594,7 @@ export type QuestCreateWithoutLearningPathInput = {
   xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  progress?: Prisma.QuestProgressCreateNestedManyWithoutQuestInput
 }
 
 export type QuestUncheckedCreateWithoutLearningPathInput = {
@@ -589,6 +608,7 @@ export type QuestUncheckedCreateWithoutLearningPathInput = {
   xp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  progress?: Prisma.QuestProgressUncheckedCreateNestedManyWithoutQuestInput
 }
 
 export type QuestCreateOrConnectWithoutLearningPathInput = {
@@ -634,6 +654,78 @@ export type QuestScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Quest"> | Date | string
 }
 
+export type QuestCreateWithoutProgressInput = {
+  id?: string
+  slug: string
+  title: string
+  summary: string
+  content: string
+  difficulty: $Enums.Difficulty
+  order: number
+  xp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  learningPath: Prisma.LearningPathCreateNestedOneWithoutQuestsInput
+}
+
+export type QuestUncheckedCreateWithoutProgressInput = {
+  id?: string
+  learningPathId: string
+  slug: string
+  title: string
+  summary: string
+  content: string
+  difficulty: $Enums.Difficulty
+  order: number
+  xp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type QuestCreateOrConnectWithoutProgressInput = {
+  where: Prisma.QuestWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestCreateWithoutProgressInput, Prisma.QuestUncheckedCreateWithoutProgressInput>
+}
+
+export type QuestUpsertWithoutProgressInput = {
+  update: Prisma.XOR<Prisma.QuestUpdateWithoutProgressInput, Prisma.QuestUncheckedUpdateWithoutProgressInput>
+  create: Prisma.XOR<Prisma.QuestCreateWithoutProgressInput, Prisma.QuestUncheckedCreateWithoutProgressInput>
+  where?: Prisma.QuestWhereInput
+}
+
+export type QuestUpdateToOneWithWhereWithoutProgressInput = {
+  where?: Prisma.QuestWhereInput
+  data: Prisma.XOR<Prisma.QuestUpdateWithoutProgressInput, Prisma.QuestUncheckedUpdateWithoutProgressInput>
+}
+
+export type QuestUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  learningPath?: Prisma.LearningPathUpdateOneRequiredWithoutQuestsNestedInput
+}
+
+export type QuestUncheckedUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  learningPathId?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  xp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type QuestCreateManyLearningPathInput = {
   id?: string
   slug: string
@@ -658,6 +750,7 @@ export type QuestUpdateWithoutLearningPathInput = {
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  progress?: Prisma.QuestProgressUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateWithoutLearningPathInput = {
@@ -671,6 +764,7 @@ export type QuestUncheckedUpdateWithoutLearningPathInput = {
   xp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  progress?: Prisma.QuestProgressUncheckedUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateManyWithoutLearningPathInput = {
@@ -687,6 +781,35 @@ export type QuestUncheckedUpdateManyWithoutLearningPathInput = {
 }
 
 
+/**
+ * Count Type QuestCountOutputType
+ */
+
+export type QuestCountOutputType = {
+  progress: number
+}
+
+export type QuestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  progress?: boolean | QuestCountOutputTypeCountProgressArgs
+}
+
+/**
+ * QuestCountOutputType without action
+ */
+export type QuestCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestCountOutputType
+   */
+  select?: Prisma.QuestCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * QuestCountOutputType without action
+ */
+export type QuestCountOutputTypeCountProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestProgressWhereInput
+}
+
 
 export type QuestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -700,7 +823,9 @@ export type QuestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   xp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  progress?: boolean | Prisma.Quest$progressArgs<ExtArgs>
   learningPath?: boolean | Prisma.LearningPathDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.QuestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quest"]>
 
 export type QuestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -749,7 +874,9 @@ export type QuestSelectScalar = {
 
 export type QuestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "learningPathId" | "slug" | "title" | "summary" | "content" | "difficulty" | "order" | "xp" | "createdAt" | "updatedAt", ExtArgs["result"]["quest"]>
 export type QuestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  progress?: boolean | Prisma.Quest$progressArgs<ExtArgs>
   learningPath?: boolean | Prisma.LearningPathDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.QuestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   learningPath?: boolean | Prisma.LearningPathDefaultArgs<ExtArgs>
@@ -761,6 +888,7 @@ export type QuestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $QuestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Quest"
   objects: {
+    progress: Prisma.$QuestProgressPayload<ExtArgs>[]
     learningPath: Prisma.$LearningPathPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1169,6 +1297,7 @@ readonly fields: QuestFieldRefs;
  */
 export interface Prisma__QuestClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  progress<T extends Prisma.Quest$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quest$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   learningPath<T extends Prisma.LearningPathDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LearningPathDefaultArgs<ExtArgs>>): Prisma.Prisma__LearningPathClient<runtime.Types.Result.GetResult<Prisma.$LearningPathPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1608,6 +1737,30 @@ export type QuestDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Quests to delete.
    */
   limit?: number
+}
+
+/**
+ * Quest.progress
+ */
+export type Quest$progressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestProgress
+   */
+  select?: Prisma.QuestProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestProgress
+   */
+  omit?: Prisma.QuestProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestProgressInclude<ExtArgs> | null
+  where?: Prisma.QuestProgressWhereInput
+  orderBy?: Prisma.QuestProgressOrderByWithRelationInput | Prisma.QuestProgressOrderByWithRelationInput[]
+  cursor?: Prisma.QuestProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestProgressScalarFieldEnum | Prisma.QuestProgressScalarFieldEnum[]
 }
 
 /**

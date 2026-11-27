@@ -20,8 +20,18 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  totalXp: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  totalXp: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -29,9 +39,10 @@ export type UserMinAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   displayName: string | null
+  role: $Enums.Role | null
+  totalXp: number | null
   createdAt: Date | null
   updatedAt: Date | null
-  role: $Enums.Role | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -39,9 +50,10 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   displayName: string | null
+  role: $Enums.Role | null
+  totalXp: number | null
   createdAt: Date | null
   updatedAt: Date | null
-  role: $Enums.Role | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -49,21 +61,31 @@ export type UserCountAggregateOutputType = {
   email: number
   passwordHash: number
   displayName: number
+  role: number
+  totalXp: number
   createdAt: number
   updatedAt: number
-  role: number
   _all: number
 }
 
+
+export type UserAvgAggregateInputType = {
+  totalXp?: true
+}
+
+export type UserSumAggregateInputType = {
+  totalXp?: true
+}
 
 export type UserMinAggregateInputType = {
   id?: true
   email?: true
   passwordHash?: true
   displayName?: true
+  role?: true
+  totalXp?: true
   createdAt?: true
   updatedAt?: true
-  role?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -71,9 +93,10 @@ export type UserMaxAggregateInputType = {
   email?: true
   passwordHash?: true
   displayName?: true
+  role?: true
+  totalXp?: true
   createdAt?: true
   updatedAt?: true
-  role?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -81,9 +104,10 @@ export type UserCountAggregateInputType = {
   email?: true
   passwordHash?: true
   displayName?: true
+  role?: true
+  totalXp?: true
   createdAt?: true
   updatedAt?: true
-  role?: true
   _all?: true
 }
 
@@ -125,6 +149,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -155,6 +191,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -164,10 +202,13 @@ export type UserGroupByOutputType = {
   email: string
   passwordHash: string
   displayName: string
+  role: $Enums.Role
+  totalXp: number
   createdAt: Date
   updatedAt: Date
-  role: $Enums.Role
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -195,10 +236,12 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   displayName?: Prisma.StringFilter<"User"> | string
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  totalXp?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  questProgress?: Prisma.QuestProgressListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -206,10 +249,12 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalXp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
+  questProgress?: Prisma.QuestProgressOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -220,10 +265,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   passwordHash?: Prisma.StringFilter<"User"> | string
   displayName?: Prisma.StringFilter<"User"> | string
+  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  totalXp?: Prisma.IntFilter<"User"> | number
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  questProgress?: Prisma.QuestProgressListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -231,12 +278,15 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalXp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -247,9 +297,10 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   displayName?: Prisma.StringWithAggregatesFilter<"User"> | string
+  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  totalXp?: Prisma.IntWithAggregatesFilter<"User"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
-  role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
 }
 
 export type UserCreateInput = {
@@ -257,10 +308,12 @@ export type UserCreateInput = {
   email: string
   passwordHash: string
   displayName: string
+  role?: $Enums.Role
+  totalXp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  questProgress?: Prisma.QuestProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -268,10 +321,12 @@ export type UserUncheckedCreateInput = {
   email: string
   passwordHash: string
   displayName: string
+  role?: $Enums.Role
+  totalXp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  questProgress?: Prisma.QuestProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -279,10 +334,12 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  questProgress?: Prisma.QuestProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -290,10 +347,12 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  questProgress?: Prisma.QuestProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -301,9 +360,10 @@ export type UserCreateManyInput = {
   email: string
   passwordHash: string
   displayName: string
+  role?: $Enums.Role
+  totalXp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
 }
 
 export type UserUpdateManyMutationInput = {
@@ -311,9 +371,10 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -321,9 +382,10 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -331,9 +393,14 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalXp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  totalXp?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -341,9 +408,10 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalXp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -351,9 +419,14 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   displayName?: Prisma.SortOrder
+  role?: Prisma.SortOrder
+  totalXp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  role?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  totalXp?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -365,12 +438,20 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type UserCreateNestedOneWithoutRefreshTokensInput = {
@@ -387,14 +468,30 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateNestedOneWithoutQuestProgressInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQuestProgressInput, Prisma.UserUncheckedCreateWithoutQuestProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQuestProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutQuestProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutQuestProgressInput, Prisma.UserUncheckedCreateWithoutQuestProgressInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutQuestProgressInput
+  upsert?: Prisma.UserUpsertWithoutQuestProgressInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutQuestProgressInput, Prisma.UserUpdateWithoutQuestProgressInput>, Prisma.UserUncheckedUpdateWithoutQuestProgressInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
   passwordHash: string
   displayName: string
+  role?: $Enums.Role
+  totalXp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
+  questProgress?: Prisma.QuestProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -402,9 +499,11 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   email: string
   passwordHash: string
   displayName: string
+  role?: $Enums.Role
+  totalXp?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  role?: $Enums.Role
+  questProgress?: Prisma.QuestProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -428,9 +527,11 @@ export type UserUpdateWithoutRefreshTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  questProgress?: Prisma.QuestProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -438,9 +539,75 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questProgress?: Prisma.QuestProgressUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutQuestProgressInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  displayName: string
+  role?: $Enums.Role
+  totalXp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutQuestProgressInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  displayName: string
+  role?: $Enums.Role
+  totalXp?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutQuestProgressInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutQuestProgressInput, Prisma.UserUncheckedCreateWithoutQuestProgressInput>
+}
+
+export type UserUpsertWithoutQuestProgressInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutQuestProgressInput, Prisma.UserUncheckedUpdateWithoutQuestProgressInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutQuestProgressInput, Prisma.UserUncheckedCreateWithoutQuestProgressInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutQuestProgressInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutQuestProgressInput, Prisma.UserUncheckedUpdateWithoutQuestProgressInput>
+}
+
+export type UserUpdateWithoutQuestProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutQuestProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  totalXp?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -450,10 +617,12 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
 
 export type UserCountOutputType = {
   refreshTokens: number
+  questProgress: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+  questProgress?: boolean | UserCountOutputTypeCountQuestProgressArgs
 }
 
 /**
@@ -473,16 +642,25 @@ export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Ty
   where?: Prisma.RefreshTokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountQuestProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestProgressWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   passwordHash?: boolean
   displayName?: boolean
+  role?: boolean
+  totalXp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  questProgress?: boolean | Prisma.User$questProgressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -491,9 +669,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   displayName?: boolean
+  role?: boolean
+  totalXp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -501,9 +680,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   displayName?: boolean
+  role?: boolean
+  totalXp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -511,14 +691,16 @@ export type UserSelectScalar = {
   email?: boolean
   passwordHash?: boolean
   displayName?: boolean
+  role?: boolean
+  totalXp?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  role?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "displayName" | "createdAt" | "updatedAt" | "role", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "displayName" | "role" | "totalXp" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  questProgress?: boolean | Prisma.User$questProgressArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -528,15 +710,17 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+    questProgress: Prisma.$QuestProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
     passwordHash: string
     displayName: string
+    role: $Enums.Role
+    totalXp: number
     createdAt: Date
     updatedAt: Date
-    role: $Enums.Role
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -932,6 +1116,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  questProgress<T extends Prisma.User$questProgressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$questProgressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -965,9 +1150,10 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly displayName: Prisma.FieldRef<"User", 'String'>
+  readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly totalXp: Prisma.FieldRef<"User", 'Int'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
-  readonly role: Prisma.FieldRef<"User", 'Role'>
 }
     
 
@@ -1382,6 +1568,30 @@ export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
+}
+
+/**
+ * User.questProgress
+ */
+export type User$questProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestProgress
+   */
+  select?: Prisma.QuestProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestProgress
+   */
+  omit?: Prisma.QuestProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestProgressInclude<ExtArgs> | null
+  where?: Prisma.QuestProgressWhereInput
+  orderBy?: Prisma.QuestProgressOrderByWithRelationInput | Prisma.QuestProgressOrderByWithRelationInput[]
+  cursor?: Prisma.QuestProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestProgressScalarFieldEnum | Prisma.QuestProgressScalarFieldEnum[]
 }
 
 /**
