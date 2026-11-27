@@ -59,6 +59,7 @@ export const rotateRefreshToken = async (
           id: true,
           email: true,
           displayName: true,
+          role: true,
           createdAt: true,
         },
       },
@@ -73,10 +74,7 @@ export const rotateRefreshToken = async (
     });
   }
 
-  if (
-    storedToken.revokedAt !== null ||
-    storedToken.expiresAt <= new Date()
-  ) {
+  if (storedToken.revokedAt !== null || storedToken.expiresAt <= new Date()) {
     throw new AppError({
       statusCode: 401,
       code: "EXPIRED_REFRESH_TOKEN",
