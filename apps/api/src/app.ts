@@ -4,12 +4,14 @@ import { errorHandler } from "./middleware/error-handler.js";
 import { healthRouter } from "./routes/health.routes.js";
 import { userRouter } from "./modules/users/user.routes.js";
 import { authRouter } from "./modules/auth/auth.routes.js";
+import cookieParser from "cookie-parser";
 
 export const createApp = () => {
   const app = express();
 
   app.disable("x-powered-by");
   app.use(express.json());
+  app.use(cookieParser());
 
   app.use("/api/v1/health", healthRouter);
   app.use("/api/v1/users", userRouter);

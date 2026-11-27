@@ -1,7 +1,10 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { createAccessToken } from "./auth.tokens.js";
+import {
+  createRefreshToken,
+  type RefreshTokenResult,
+} from "./refresh-token.service.js";
 import type { LoginUserInput } from "@codequest/shared";
-import { env } from "../../config/env.js";
 import { AppError } from "../../errors/app-error.js";
 import { prisma } from "../../lib/prisma.js";
 import type { PublicUser } from "../users/user.service.js";
@@ -9,6 +12,7 @@ import type { PublicUser } from "../users/user.service.js";
 export type LoginResult = {
   user: PublicUser;
   accessToken: string;
+  refreshToken: RefreshTokenResult;
 };
 
 export const loginUser = async (
@@ -48,25 +52,19 @@ export const loginUser = async (
     });
   }
 
-  const accessToken = jwt.sign(
-    {
-      sub: user.id,
-    },
-    env.JWT_ACCESS_SECRET,
-    {
-      expiresIn: env.JWT_ACCESS_EXPIRES_IN,
-    },
-  );
+const accessToken = createAccessToken(user.id);
+const refreshToken = await createRefreshToken(user.id);
 
   return {
-    accessToken,
-    user: {
-      id: user.id,
-      email: user.email,
-      displayName: user.displayName,
-      createdAt: user.createdAt,
-    },
-  };
+  accessToken,
+  refreshToken,
+  user: {
+    id: user.id,
+    email: user.email,
+    displayName: user.displayName,
+    createdAt: user.createdAt,
+  },
+};
 };
 
 export const getCurrentUser = async (

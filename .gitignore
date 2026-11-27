@@ -6,6 +6,7 @@ coverage
 .env.*
 !.env.example
 *.tsbuildinfo
+cookies.txt
 
 # Local docs and AI assistant instructions
 /docs/
