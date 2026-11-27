@@ -2,11 +2,13 @@ import bcrypt from "bcryptjs";
 import type { RegisterUserInput } from "@codequest/shared";
 import { AppError } from "../../errors/app-error.js";
 import { prisma } from "../../lib/prisma.js";
+import { Role } from "../../generated/prisma/client.js";
 
 export type PublicUser = {
   id: string;
   email: string;
   displayName: string;
+  role: Role;
   createdAt: Date;
 };
 
@@ -38,6 +40,7 @@ export const createUser = async (
     select: {
       id: true,
       email: true,
+      role: true,
       displayName: true,
       createdAt: true,
     },

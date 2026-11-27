@@ -15,6 +15,7 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   refreshTokens RefreshToken[]
+  role Role @default(USER)
 }
 
 model RefreshToken {
@@ -28,4 +29,9 @@ model RefreshToken {
  
   @@index([userId])
   @@index([expiresAt])
+}
+
+enum Role {
+  USER
+  ADMIN
 }

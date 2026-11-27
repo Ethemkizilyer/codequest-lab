@@ -26,6 +26,7 @@ export const loginUser = async (
       id: true,
       email: true,
       displayName: true,
+      role: true,
       passwordHash: true,
       createdAt: true,
     },
@@ -52,24 +53,23 @@ export const loginUser = async (
     });
   }
 
-const accessToken = createAccessToken(user.id);
-const refreshToken = await createRefreshToken(user.id);
+  const accessToken = createAccessToken(user.id);
+  const refreshToken = await createRefreshToken(user.id);
 
   return {
-  accessToken,
-  refreshToken,
-  user: {
-    id: user.id,
-    email: user.email,
-    displayName: user.displayName,
-    createdAt: user.createdAt,
-  },
-};
+    accessToken,
+    refreshToken,
+    user: {
+      id: user.id,
+      email: user.email,
+      displayName: user.displayName,
+      role: user.role,
+      createdAt: user.createdAt,
+    },
+  };
 };
 
-export const getCurrentUser = async (
-  userId: string,
-): Promise<PublicUser> => {
+export const getCurrentUser = async (userId: string): Promise<PublicUser> => {
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
@@ -78,6 +78,7 @@ export const getCurrentUser = async (
       id: true,
       email: true,
       displayName: true,
+      role: true,
       createdAt: true,
     },
   });
