@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
   LearningPath: 'LearningPath',
-  Quest: 'Quest'
+  Quest: 'Quest',
+  QuestProgress: 'QuestProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,9 +79,10 @@ export const UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   displayName: 'displayName',
+  role: 'role',
+  totalXp: 'totalXp',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  role: 'role'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -126,6 +128,21 @@ export const QuestScalarFieldEnum = {
 } as const
 
 export type QuestScalarFieldEnum = (typeof QuestScalarFieldEnum)[keyof typeof QuestScalarFieldEnum]
+
+
+export const QuestProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  questId: 'questId',
+  status: 'status',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  earnedXp: 'earnedXp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuestProgressScalarFieldEnum = (typeof QuestProgressScalarFieldEnum)[keyof typeof QuestProgressScalarFieldEnum]
 
 
 export const SortOrder = {

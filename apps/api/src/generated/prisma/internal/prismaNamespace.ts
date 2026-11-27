@@ -400,7 +400,8 @@ export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
   LearningPath: 'LearningPath',
-  Quest: 'Quest'
+  Quest: 'Quest',
+  QuestProgress: 'QuestProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "learningPath" | "quest"
+    modelProps: "user" | "refreshToken" | "learningPath" | "quest" | "questProgress"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -716,6 +717,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    QuestProgress: {
+      payload: Prisma.$QuestProgressPayload<ExtArgs>
+      fields: Prisma.QuestProgressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.QuestProgressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.QuestProgressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>
+        }
+        findFirst: {
+          args: Prisma.QuestProgressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.QuestProgressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>
+        }
+        findMany: {
+          args: Prisma.QuestProgressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>[]
+        }
+        create: {
+          args: Prisma.QuestProgressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>
+        }
+        createMany: {
+          args: Prisma.QuestProgressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.QuestProgressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>[]
+        }
+        delete: {
+          args: Prisma.QuestProgressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>
+        }
+        update: {
+          args: Prisma.QuestProgressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>
+        }
+        deleteMany: {
+          args: Prisma.QuestProgressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.QuestProgressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.QuestProgressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>[]
+        }
+        upsert: {
+          args: Prisma.QuestProgressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuestProgressPayload>
+        }
+        aggregate: {
+          args: Prisma.QuestProgressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateQuestProgress>
+        }
+        groupBy: {
+          args: Prisma.QuestProgressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuestProgressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.QuestProgressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuestProgressCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -760,9 +835,10 @@ export const UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   displayName: 'displayName',
+  role: 'role',
+  totalXp: 'totalXp',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  role: 'role'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -810,6 +886,21 @@ export const QuestScalarFieldEnum = {
 export type QuestScalarFieldEnum = (typeof QuestScalarFieldEnum)[keyof typeof QuestScalarFieldEnum]
 
 
+export const QuestProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  questId: 'questId',
+  status: 'status',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  earnedXp: 'earnedXp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuestProgressScalarFieldEnum = (typeof QuestProgressScalarFieldEnum)[keyof typeof QuestProgressScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -855,20 +946,6 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'DateTime'
- */
-export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-/**
  * Reference to a field of type 'Role'
  */
 export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
@@ -879,6 +956,34 @@ export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Role[]'
  */
 export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime'
+ */
+export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'DateTime[]'
+ */
+export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -904,16 +1009,16 @@ export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'QuestProgressStatus'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type EnumQuestProgressStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestProgressStatus'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'QuestProgressStatus[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+export type ListEnumQuestProgressStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestProgressStatus[]'>
     
 
 
@@ -1085,6 +1190,7 @@ export type GlobalOmitConfig = {
   refreshToken?: Prisma.RefreshTokenOmit
   learningPath?: Prisma.LearningPathOmit
   quest?: Prisma.QuestOmit
+  questProgress?: Prisma.QuestProgressOmit
 }
 
 /* Types for Logging */

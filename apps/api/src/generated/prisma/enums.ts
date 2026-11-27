@@ -24,3 +24,11 @@ export const Difficulty = {
 } as const
 
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
+
+
+export const QuestProgressStatus = {
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type QuestProgressStatus = (typeof QuestProgressStatus)[keyof typeof QuestProgressStatus]

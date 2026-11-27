@@ -26,6 +26,7 @@ export {
   difficultySchema,
   createQuestSchema,
   updateQuestSchema,
+  questIdParamsSchema,
   type CreateLearningPathInput,
   type UpdateLearningPathInput,
   type CreateQuestInput,

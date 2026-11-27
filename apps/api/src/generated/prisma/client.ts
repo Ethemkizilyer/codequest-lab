@@ -61,3 +61,8 @@ export type LearningPath = Prisma.LearningPathModel
  * 
  */
 export type Quest = Prisma.QuestModel
+/**
+ * Model QuestProgress
+ * 
+ */
+export type QuestProgress = Prisma.QuestProgressModel
