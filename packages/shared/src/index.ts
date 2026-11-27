@@ -1,19 +1,13 @@
 import { z } from "zod";
-export {
-  createLearningPathSchema,
-  updateLearningPathSchema,
-  learningPathSlugParamsSchema,
-  learningPathIdParamsSchema,
-  type CreateLearningPathInput,
-  type UpdateLearningPathInput,
-} from "./content.js";
 
 export const healthResponseSchema = z.object({
   status: z.literal("ok"),
   service: z.literal("codequest-api"),
 });
 
-export type HealthResponse = z.infer<typeof healthResponseSchema>;
+export type HealthResponse = z.infer<
+  typeof healthResponseSchema
+>;
 
 export {
   registerUserSchema,
@@ -21,3 +15,19 @@ export {
   type LoginUserInput,
   type RegisterUserInput,
 } from "./auth.js";
+
+export {
+  createLearningPathSchema,
+  updateLearningPathSchema,
+  learningPathSlugParamsSchema,
+  learningPathIdParamsSchema,
+  questLearningPathIdParamsSchema,
+  questParamsSchema,
+  difficultySchema,
+  createQuestSchema,
+  updateQuestSchema,
+  type CreateLearningPathInput,
+  type UpdateLearningPathInput,
+  type CreateQuestInput,
+  type UpdateQuestInput,
+} from "./content.js";
