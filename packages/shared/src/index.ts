@@ -1,4 +1,12 @@
 import { z } from "zod";
+export {
+  createLearningPathSchema,
+  updateLearningPathSchema,
+  learningPathSlugParamsSchema,
+  learningPathIdParamsSchema,
+  type CreateLearningPathInput,
+  type UpdateLearningPathInput,
+} from "./content.js";
 
 export const healthResponseSchema = z.object({
   status: z.literal("ok"),
